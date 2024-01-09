@@ -311,8 +311,39 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const result = new Array(size);
+  for (let i = 0; i < size; i += 1) {
+    result[i] = new Array(size);
+  }
+  let counter = 1;
+  let startCol = 0;
+  let endCol = size - 1;
+  let startRow = 0;
+  let endRow = size - 1;
+  while (startCol <= endCol && startRow <= endRow) {
+    for (let i = startCol; i <= endCol; i += 1) {
+      result[startRow][i] = counter;
+      counter += 1;
+    }
+    startRow += 1;
+    for (let j = startRow; j <= endRow; j += 1) {
+      result[j][endCol] = counter;
+      counter += 1;
+    }
+    endCol -= 1;
+    for (let i = endCol; i >= startCol; i -= 1) {
+      result[endRow][i] = counter;
+      counter += 1;
+    }
+    endRow -= 1;
+    for (let j = endRow; j >= startRow; j -= 1) {
+      result[j][startCol] = counter;
+      counter += 1;
+    }
+    startCol += 1;
+  }
+  return result;
 }
 
 /**
@@ -330,8 +361,21 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rotatesMatrix = matrix;
+  const lenght = rotatesMatrix.length;
+  for (let i = 0; i < lenght / 2; i += 1) {
+    for (let j = i; j < lenght - i - 1; j += 1) {
+      const item = rotatesMatrix[i][j];
+      const lenJ = lenght - j - 1;
+      const lenI = lenght - i - 1;
+      rotatesMatrix[i][j] = rotatesMatrix[lenJ][i];
+      rotatesMatrix[lenJ][i] = rotatesMatrix[lenI][lenJ];
+      rotatesMatrix[lenI][lenJ] = rotatesMatrix[j][lenI];
+      rotatesMatrix[j][lenI] = item;
+    }
+  }
+  return rotatesMatrix;
 }
 
 /**
@@ -348,8 +392,19 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const n = arr.length;
+  const array = arr;
+  for (let i = 0; i < n - 1; i += 1) {
+    for (let j = 0; j < n - i - 1; j += 1) {
+      if (array[j] > array[j + 1]) {
+        const temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+  }
+  return array;
 }
 
 /**
